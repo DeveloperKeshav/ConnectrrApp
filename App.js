@@ -29,6 +29,7 @@ export default function App() {
         headerShown: false,
         animation: 'slide_from_right'
       }}>
+        <Stack.Screen name="MainPage" component={Mainpage} />
         <Stack.Screen name="Login" component={Login}
           options={{
 
@@ -48,7 +49,7 @@ export default function App() {
         <Stack.Screen name="ForgotPassword_ChoosePassword" component={ForgotPassword_ChoosePassword} />
         <Stack.Screen name="ForgotPassword_EnterEmail" component={ForgotPassword_EnterEmail} />
         <Stack.Screen name="ForgotPassword_EnterVerificationCode" component={ForgotPassword_EnterVerificationCode} />
-        <Stack.Screen name="MainPage" component={Mainpage} />
+
         <Stack.Screen name="All_chats" component={All_chats}
           options={{
             animation: 'slide_from_bottom'
