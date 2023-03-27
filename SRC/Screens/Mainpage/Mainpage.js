@@ -5,9 +5,16 @@ import { formHead } from '../../CommonCss/formcss'
 import Bottomnavbar from '../../Components/Bottomnavbar'
 import TopNavbar from '../../Components/TopNavbar'
 import FollowersRandomPost from '../../Components/FollowersRandomPost'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Mainpage = ({ navigation }) => {
+
+    AsyncStorage.getItem('user')
+        .then(data => {
+            console.log('async user data ', data)
+        })
+        .catch(err => alert(err))
     return (
         <View style={styles.container}>
             <StatusBar />

@@ -42,14 +42,12 @@ const ForgotPassword_EnterVerificationCode = ({ navigation, route }) => {
       <TextInput placeholder='Enter 6-digit code' style={formInput}
         onChangeText={(text) => setVerificationCode(text)}
       />
-      {
-        loading ? <ActivityIndicator size="large" color="white" /> :
-          <Text style={formbtn}
-            onPress={() => handleVerificationCode()}
-          >
-            Next
-          </Text>
-      }
+
+      <Text style={formbtn}
+        onPress={() => handleVerificationCode()}
+      >
+        Next
+      </Text>
 
     </View>
   )

@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import logo from '../../../../assets/logo.png'
 import { containerFull, hr80, logo1 } from '../../../CommonCss/pagecss'
 import { formbtn, formHead, formInput, formTextLinkCenter, formTextLinkRight } from '../../../CommonCss/formcss'
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('')
@@ -35,6 +34,7 @@ const Login = ({ navigation }) => {
                     }
                     else if (data.message == 'Successfully Signed In') {
                         setLoading(false)
+                        await AsyncStorage.setItem('user', JSON.stringify(data))
                         // await AsyncStorage.setItem('user', JSON.stringify(data))
                         navigation.navigate('MainPage', { data })
                     }
