@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, StatusBar, TextInput, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Text, View, StatusBar, TextInput, ScrollView, ActivityIndicator } from 'react-native'
+import React, { useEffect, useStae, useState } from 'react'
 import { containerFull, searchbar } from '../../CommonCss/pagecss'
-import { formHead } from '../../CommonCss/formcss'
+import { formHead, formHead2 } from '../../CommonCss/formcss'
 import Bottomnavbar from '../../Components/Bottomnavbar'
 import TopNavbar from '../../Components/TopNavbar'
 import FollowersRandomPost from '../../Components/FollowersRandomPost'
@@ -10,34 +10,50 @@ import UserCard from '../../Cards/UserCard'
 
 const SearchUserPage = ({ navigation }) => {
 
-  let data = [
-    {
-      username: "Keshav",
-      profile_image: "https://images.pexels.com/photos/3687770/pexels-photo-3687770.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-    {
-      username: "Adesh",
-      profile_image: "https://images.pexels.com/photos/1758144/pexels-photo-1758144.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-    {
-      username: "Bhushan",
-      profile_image: "https://images.pexels.com/photos/40192/woman-happiness-sunrise-silhouette-40192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-    {
-      username: "Khandare",
-      profile_image: "https://images.pexels.com/photos/3687770/pexels-photo-3687770.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-    {
-      username: "Shelke",
-      profile_image: "https://images.pexels.com/photos/1758144/pexels-photo-1758144.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-    {
-      username: "Wakhare",
-      profile_image: "https://images.pexels.com/photos/40192/woman-happiness-sunrise-silhouette-40192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-  ]
 
-  const [keyword, setKeyword] = useState('')
+  const [keyword, setKeyword] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState([])
+  const [error, setError] = useState(null)
+
+  const getallusers = async () => {
+    if (keyword.length > 0) {
+      setLoading(true)
+      fetch('http://192.168.0.103:3000/searchuser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ keyword: keyword })
+      })
+        .then(res => res.json())
+        .then(data => {
+          // console.log(data)
+          if (data.error) {
+            setData([])
+            setError(data.error)
+            setLoading(false)
+          }
+          else if (data.message == 'User Found') {
+            setError(null)
+            setData(data.user)
+            setLoading(false)
+          }
+        })
+        .catch(err => {
+          setData([])
+          setLoading(false)
+        })
+    }
+    else {
+      setData([])
+      setError(null)
+    }
+  }
+
+  useEffect(() => {
+    getallusers()
+  }, [keyword])
   return (
     <View style={styles.container}>
       <StatusBar />
@@ -45,30 +61,34 @@ const SearchUserPage = ({ navigation }) => {
       <Bottomnavbar navigation={navigation} page={"SearchUserPage"} />
 
       <View style={styles.searchview}>
-        <TextInput placeholder="Search.." style={searchbar}
+        <TextInput placeholder="Search by username.." style={searchbar}
           onChangeText={(text) => {
             setKeyword(text)
           }}
         />
       </View>
-      <ScrollView style={styles.userlist}>
-        {
-          data.filter(
-            (user) => {
-              if (keyword == '') {
-                return null
-              }
-              else if (
-                user.username.toLowerCase().includes(keyword.toLowerCase())
-              ) {
-                return user
-              }
+      {
+        loading ?
+          <ActivityIndicator size="large" color="white" />
+          :
+          <>
+            {
+              error ?
+                <Text style={formHead2}>{error}</Text>
+                :
+
+                <ScrollView style={styles.userlist}>
+                  {
+                    data.map((item, index) => {
+                      return <UserCard key={item.username} user={item}
+                        navigation={navigation}
+                      />
+                    })
+                  }
+                </ScrollView>
             }
-          ).map((item, index) => {
-            return <UserCard key={item.username} user={item} />
-          })
-        }
-      </ScrollView>
+          </>
+      }
 
 
     </View>

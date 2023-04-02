@@ -25,6 +25,16 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Connectrr to accesses your Gallery.",
+          "cameraPermission": "Allow Connectrr to accesses your Camera.",
+          "microphonePermission": "Allow Connectrr to accesses your Microphone."
+        }
+      ]
+    ]
   }
 }

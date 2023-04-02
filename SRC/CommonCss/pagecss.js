@@ -26,9 +26,10 @@ module.exports = {
     goback: {
         flexDirection: 'row',
         position: 'absolute',
-        top: 50,
-        left: 20,
+        top: 5,
+        left: 5,
         alignItems: 'center',
+        fontSize: 30,
     },
     icon1: {
         color: 'white',

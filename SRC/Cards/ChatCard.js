@@ -1,21 +1,52 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
+import nopic from '../../assets/nopic.png'
 
-const ChatCard = ({ chat }) => {
+const ChatCard = ({ chat, navigation }) => {
+    console.log(chat.fuserid)
+    let [fuserdata, setFuserdata] = React.useState(null);
+    useEffect(() => {
+        fetch('http://192.168.0.103:3000/getuserbyid', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userid: chat.fuserid
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setFuserdata(data)
+            })
+            .catch(err => {
+                alert('Something went wrong')
+                setFuserdata(null)
+            })
+    }, [])
+
     return (
         <View style={styles.ChatCard}>
-            <Image
-                source={{ uri: chat.profileimage }}
-                style={styles.image}
-            />
+            {
+                fuserdata?.user?.profilepic ?
+                    <Image source={{ uri: fuserdata?.user?.profilepic }} style={styles.image} />
+                    :
+                    <Image source={nopic} style={styles.image} />
+            }
 
-            <View style={styles.c1} >
-                <Text style={styles.username}>
-                    {chat.username}
-                </Text>
-                <Text style={styles.lastmessage}>
-                    {chat.lastmessage}
-                </Text>
+            <View style={styles.c1}>
+                <Text style={styles.username} onPress={
+
+                    () => {
+                        navigation.navigate('MessagePage', {
+                            fuseremail: fuserdata.user.email,
+                            fuserid: fuserdata.user._id,
+                        })
+                    }
+
+                }>{fuserdata?.user?.username}</Text>
+                <Text style={styles.lastmessage}>{chat.lastmessage}</Text>
             </View>
         </View>
     )

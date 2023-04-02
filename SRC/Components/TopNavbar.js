@@ -3,11 +3,16 @@ import React from 'react'
 import icon from '../../assets/icon.png'
 import { icon1, logo2 } from '../CommonCss/pagecss'
 import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 
 const TopNavbar = ({ navigation, page }) => {
     return (
+
         <View style={styles.container}>
+            <MaterialIcons name="library-add" size={24} color="black" style={icon1} onPress={
+                () => navigation.navigate('AddPost')
+            } />
             <Image source={icon} style={logo2} />
             {
                 page === 'MainPage' &&
@@ -22,9 +27,7 @@ const TopNavbar = ({ navigation, page }) => {
                     () => navigation.navigate('Settings_1')
                 } />
             }
-            {/* <Ionicons name="chatbubbles" size={24} color="black" style={icon1} onPress={
-                () => navigation.navigate('All_chats')
-            } /> */}
+
         </View>
     )
 }

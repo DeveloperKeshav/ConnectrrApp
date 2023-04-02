@@ -19,6 +19,14 @@ import DiscoverPage from './SRC/Screens/Mainpage/DiscoverPage';
 import NotificationPage from './SRC/Screens/Mainpage/NotificationPage';
 import My_UserProfile from './SRC/Screens/Profile/My_UserProfile';
 import Settings1 from './SRC/Screens/Settings/Settings1';
+import ChangePassword from './SRC/Screens/Settings/ChangePassword';
+import EditProfile from './SRC/Screens/Settings/EditProfile';
+import UploadProfilePicture from './SRC/Screens/Settings/UploadProfilePicture';
+import ChangeUsername from './SRC/Screens/Settings/ChangeUsername';
+import ChangeDescription from './SRC/Screens/Settings/ChangeDescription';
+import AddPost from './SRC/Screens/Mainpage/AddPost';
+import Other_UserProfile from './SRC/Screens/Profile/Other_UserProfile';
+import MessagePage from './SRC/Screens/ChatSection/MessagePage';
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +68,14 @@ export default function App() {
         <Stack.Screen name="NotificationPage" component={NotificationPage} />
         <Stack.Screen name="My_UserProfile" component={My_UserProfile} />
         <Stack.Screen name="Settings_1" component={Settings1} />
+        <Stack.Screen name="ChangePassword" component={ChangePassword} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="UploadProfilePicture" component={UploadProfilePicture} />
+        <Stack.Screen name="ChangeUsername" component={ChangeUsername} />
+        <Stack.Screen name="ChangeDescription" component={ChangeDescription} />
+        <Stack.Screen name="AddPost" component={AddPost} />
+        <Stack.Screen name="Other_UserProfile" component={Other_UserProfile} />
+        <Stack.Screen name="MessagePage" component={MessagePage} />
 
       </Stack.Navigator>
     </NavigationContainer>

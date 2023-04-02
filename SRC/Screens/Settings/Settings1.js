@@ -2,8 +2,15 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { formHead, formHead3 } from '../../CommonCss/formcss';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Settings1 = ({ navigation }) => {
+
+    const logout = () => {
+        AsyncStorage.removeItem('user').then(() => {
+            navigation.navigate('Login')
+        })
+    }
     return (
         <View style={styles.container}>
             <Ionicons name="chevron-back-circle" size={24} color="white" style={styles.gohomeicon}
@@ -11,11 +18,18 @@ const Settings1 = ({ navigation }) => {
             />
             <Text style={formHead}>Settings</Text>
 
-            <Text style={styles.txt1}>Edit Profile</Text>
-            <Text style={styles.txt1}>Change Password</Text>
-            <Text style={styles.txt1}>Customer support</Text>
             <Text style={styles.txt1} onPress={
-                () => navigation.navigate('Login')
+                () => navigation.navigate('EditProfile')
+            }>Edit Profile</Text>
+
+            <Text style={styles.txt1} onPress={
+                () => navigation.navigate('ChangePassword')
+            }>Change Password</Text>
+
+            <Text style={styles.txt1}>Customer support</Text>
+
+            <Text style={styles.txt1} onPress={
+                () => logout()
             }>Log out</Text>
 
 
