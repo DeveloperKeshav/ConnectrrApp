@@ -31,7 +31,9 @@ const Settings1 = ({ navigation }) => {
             <Text style={styles.txt1} onPress={
                 () => logout()
             }>Log out</Text>
-
+            <Text style={styles.txt1} onPress={
+                () => navigation.navigate('TestPage')
+            }>Testing Page</Text>
 
         </View>
     )

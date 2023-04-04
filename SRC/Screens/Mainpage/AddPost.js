@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { containerFull, goback, hr80, logo1 } from '../../CommonCss/pagecss'
 import logo from '../../../assets/logo.png'
 import { formbtn, formHead, formHead2, formHead3, formInput, formTextLinkCenter, formTextLinkRight } from '../../CommonCss/formcss'
@@ -8,6 +8,8 @@ import { firebase } from '../../Firebase/Config'
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from 'moment';
+
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
@@ -25,7 +27,24 @@ const AddPost = ({ navigation }) => {
     const [loading1, setLoading1] = useState(false)
     const [loading2, setLoading2] = useState(false)
     const [post, setPost] = useState(null)
+    const [currentDate, setCurrentDate] = useState('');
 
+
+    useEffect(() => {
+        const date = new Date();
+        const options = {
+            // weekday: 'long',
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            // timeZoneName: 'short',
+        };
+        const formattedDate = date.toLocaleDateString('en-US', options);
+        setCurrentDate(formattedDate);
+    }, []);
 
     const pickImage = async () => {
         // await this.askPermissionsAsync();
@@ -110,7 +129,8 @@ const AddPost = ({ navigation }) => {
                         body: JSON.stringify({
                             email: JSON.parse(data).user.email,
                             post: post,
-                            postdescription: postdescription
+                            postdescription: postdescription,
+                            postdatetime: currentDate
                         })
                     })
                         .then(res => res.json())

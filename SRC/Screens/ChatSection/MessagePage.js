@@ -216,8 +216,6 @@ const MessagePage = ({ navigation, route }) => {
                             /> :
                             <MaterialIcons name="send" size={24} color="grey" />
                     }
-
-
                 </TouchableOpacity>
             </View>
         </View>

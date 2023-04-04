@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, StatusBar, ScrollView, Image, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, StatusBar, ScrollView, Image, ActivityIndicator, TouchableOpacity } from 'react-native'
 import React, { useEffect } from 'react'
 import { containerFull } from '../../CommonCss/pagecss'
 import { formHead } from '../../CommonCss/formcss'
@@ -8,6 +8,7 @@ import FollowersRandomPost from '../../Components/FollowersRandomPost'
 import nopic from '../../../assets/nopic.png'
 import { Foundation } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PostPage from './PostPage'
 
 const Other_UserProfile = ({ navigation, route }) => {
     const [userdata, setUserdata] = React.useState(null)
@@ -151,6 +152,7 @@ const Other_UserProfile = ({ navigation, route }) => {
                 }
             })
     }
+
     return (
         <View style={styles.container}>
             <StatusBar />
@@ -241,9 +243,15 @@ const Other_UserProfile = ({ navigation, route }) => {
                                                         userdata.posts?.map(
                                                             (item) => {
                                                                 return (
-                                                                    <Image key={item.post} style={styles.postpic}
-                                                                        source={{ uri: item.post }}
-                                                                    />
+
+                                                                    <TouchableOpacity key={item.post} style={styles.pictoch} onPress={() => navigation.navigate("PostPage", {
+                                                                        user: userdata.username,
+                                                                        post: item.post
+                                                                    })} >
+                                                                        <Image key={item.post} style={styles.postpic}
+                                                                            source={{ uri: item.post }}
+                                                                        />
+                                                                    </TouchableOpacity>
                                                                 )
                                                             }
                                                         )
@@ -332,6 +340,10 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
     },
     postpic: {
+        width: '100%',
+        height: 120,
+    },
+    pictoch: {
         width: '30%',
         height: 120,
         margin: 5

@@ -27,6 +27,8 @@ import ChangeDescription from './SRC/Screens/Settings/ChangeDescription';
 import AddPost from './SRC/Screens/Mainpage/AddPost';
 import Other_UserProfile from './SRC/Screens/Profile/Other_UserProfile';
 import MessagePage from './SRC/Screens/ChatSection/MessagePage';
+import TestPage from './SRC/testfolder/TestPage';
+import PostPage from './SRC/Screens/Profile/PostPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -76,6 +78,8 @@ export default function App() {
         <Stack.Screen name="AddPost" component={AddPost} />
         <Stack.Screen name="Other_UserProfile" component={Other_UserProfile} />
         <Stack.Screen name="MessagePage" component={MessagePage} />
+        <Stack.Screen name="TestPage" component={TestPage} />
+        <Stack.Screen name="PostPage" component={PostPage} />
 
       </Stack.Navigator>
     </NavigationContainer>

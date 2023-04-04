@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, StatusBar, ScrollView, Image, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, StatusBar, ScrollView, Image, ActivityIndicator, TouchableOpacity } from 'react-native'
 import React, { useEffect } from 'react'
 import { containerFull } from '../../CommonCss/pagecss'
 import { formHead } from '../../CommonCss/formcss'
@@ -140,13 +140,18 @@ const My_UserProfile = ({ navigation }) => {
                 <View style={styles.c1}>
                   <Text style={styles.txt}>Your Post</Text>
                   <View style={styles.c13}>
-                    { 
+                    {
                       userdata.posts.map(
                         (item) => {
                           return (
-                            <Image key={item.post} style={styles.postpic}
-                              source={{ uri: item.post }}
-                            />
+                            <TouchableOpacity key={item.post} style={styles.pictoch} onPress={() => navigation.navigate("PostPage", {
+                              user: userdata.username,
+                              post: item.post
+                            })} >
+                              <Image key={item.post} style={styles.postpic}
+                                source={{ uri: item.post }}
+                              />
+                            </TouchableOpacity>
                           )
                         }
                       )
@@ -228,12 +233,21 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingVertical: 20,
   },
+  // postpic: {
+  //   width: '30%',
+  //   height: 120,
+  //   margin: 5,
+  //   //resizeMode: 'cover',
+
+  // },
   postpic: {
+    width: '100%',
+    height: 120,
+  },
+  pictoch: {
     width: '30%',
     height: 120,
-    margin: 5,
-    //resizeMode: 'cover',
-
+    margin: 5
   },
   c13: {
     width: '100%',
